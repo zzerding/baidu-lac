@@ -1,0 +1,15 @@
+version: "3"
+services:
+  lac:
+    restart: always
+    # Dani Garcia image https://github.com/dani-garcia/bitwarden_rs
+    environment:
+        - GEVENT_ADDRESS=0.0.0.0
+        - GEVENT_PORT=3001
+        - PASSWORD=zzerd.com
+    image: "zzerding/baidu-lac:latest"
+    container_name: lac
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./:/app/

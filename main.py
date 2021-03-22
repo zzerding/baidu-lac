@@ -1,4 +1,6 @@
 # coding=utf-8
+import os
+
 from flask import  Flask, request
 from LAC import LAC
 from gevent.pywsgi import WSGIServer
@@ -73,5 +75,21 @@ if __name__ == "__main__":
     app.config['JSON_AS_ASCII'] = False
     app.config["DEBUG"] = False
     #app.run(host='127.0.0.1', port='3001')
-    http_server = WSGIServer(('',3001),app)
+    host_name = os.environ.get('GEVENT_ADDRESS')
+    port = os.environ.get('GEVENT_PORT')
+    password = os.environ.get('PASSWORD')
+
+    if not host_name:
+        host_name = ''
+
+    if not port:
+        port = 3001
+    else:
+        port = int(port)
+
+    if password:
+        PASSWORD = password
+
+
+    http_server = WSGIServer((host_name,port),app)
     http_server.serve_forever()
